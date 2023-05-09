@@ -2,44 +2,26 @@
 
 namespace Eventmi.Core.Models
 {
-    /// <summary>
-    /// Събитие
-    /// </summary>
     public class EventModel
     {
-        /// <summary>
-        /// Идентификатор на запис
-        /// </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// Име на събитието
-        /// </summary>
-        [Display(Name = "Име на събитието")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето '{0}' е задължително")]
-        [StringLength(50, MinimumLength = 4, ErrorMessage = "Полето '{0}' трябва да е дълго между {2} и {1} символа")]
+        [Display(Name = "Name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Field '{0}' is required")]
+        [StringLength(50, MinimumLength = 4, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
         public string Name { get; set; } = null!;
 
-        /// <summary>
-        /// Начална дата и час
-        /// </summary>
-        [Display(Name = "Начална дата и час")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето '{0}' е задължително")]
+        [Display(Name = "Start Date")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Field '{0}' is required")]
         public DateTime Start { get; set; }
 
-        /// <summary>
-        /// Крайна дата и час
-        /// </summary>
-        [Display(Name = "Крайна дата и час")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето '{0}' е задължително")]
+        [Display(Name = "End Date")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Field '{0}' is required")]
         public DateTime End { get; set; }
 
-        /// <summary>
-        /// Място на провеждане
-        /// </summary>
-        [Display(Name = "Име на събитието")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето '{0}' е задължително")]
-        [StringLength(100, MinimumLength = 4, ErrorMessage = "Полето '{0}' трябва да е дълго между {2} и {1} символа")]
+        [Display(Name = "Place")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Field '{0}' is required")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
         public string Place { get; set; } = null!;
     }
 }

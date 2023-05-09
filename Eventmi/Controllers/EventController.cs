@@ -31,7 +31,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Index", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
             
             return View("All", model);
@@ -66,7 +66,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Add", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
 
             return RedirectToAction(nameof(Index));
@@ -91,7 +91,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Details", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
 
             return RedirectToAction(nameof(Index));
@@ -108,7 +108,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Delete", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
 
             return RedirectToAction(nameof(Index));
@@ -133,7 +133,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Details", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
 
             return RedirectToAction(nameof(Index));
@@ -162,7 +162,7 @@ namespace Eventmi.Controllers
             {
                 logger.LogError("EventController/Details", ex);
 
-                ViewBag.ErrorMessage = "Възникна непредвидена грешка!";
+                ViewBag.ErrorMessage = "Something went wrong!";
             }
 
             return RedirectToAction(nameof(Index));

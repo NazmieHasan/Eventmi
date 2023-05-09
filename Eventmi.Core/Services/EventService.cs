@@ -6,30 +6,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eventmi.Core.Services
 {
-    /// <summary>
-    /// Услуга за управление на събития
-    /// </summary>
     public class EventService : IEventService
     {
-        /// <summary>
-        /// Достъп до базата данни
-        /// </summary>
         private readonly IRepository repo;
-
-        /// <summary>
-        /// Инжектиране на зависимости
-        /// </summary>
-        /// <param name="_repo">Достъп до базата данни</param>
         public EventService(IRepository _repo)
         {
             repo = _repo;
         }
 
-        /// <summary>
-        /// Добавяне на събитие
-        /// </summary>
-        /// <param name="model">Данни за събитие</param>
-        /// <returns></returns>
         public async Task AddAsync(EventModel model)
         {
             var entity = new Event()
@@ -44,11 +28,6 @@ namespace Eventmi.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Изтриване на събитие
-        /// </summary>
-        /// <param name="id">Идентификатор на събитие</param>
-        /// <returns></returns>
         public async Task DeleteAsync(int id)
         {
             await repo.DeleteAsync<Event>(id);
@@ -56,10 +35,6 @@ namespace Eventmi.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Преглед на всички събития
-        /// </summary>
-        /// <returns></returns>
         public async Task<IEnumerable<EventModel>> GetAllAsync()
         {
             return await repo.AllReadonly<Event>()
@@ -75,18 +50,13 @@ namespace Eventmi.Core.Services
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// Преглед на събитие
-        /// </summary>
-        /// <param name="id">Идентификатор на събитие</param>
-        /// <returns></returns>
         public async Task<EventModel> GetEventAsync(int id)
         {
             var entity = await repo.GetByIdAsync<Event>(id);
 
             if (entity == null)
             {
-                throw new ArgumentException("Невалиден идентификатор", nameof(id));
+                throw new ArgumentException("Invalid id", nameof(id));
             }
 
             return new EventModel() 
@@ -99,18 +69,13 @@ namespace Eventmi.Core.Services
             };
         }
 
-        /// <summary>
-        /// Промяна на събитие
-        /// </summary>
-        /// <param name="model">Данни за събитие</param>
-        /// <returns></returns>
         public async Task UpdateAsync(EventModel model)
         {
             var entity = await repo.GetByIdAsync<Event>(model.Id);
 
             if (entity == null)
             {
-                throw new ArgumentException("Невалиден идентификатор", nameof(model.Id));
+                throw new ArgumentException("Invalid id", nameof(model.Id));
             }
 
             entity.End = model.End;
