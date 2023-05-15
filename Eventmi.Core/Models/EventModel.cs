@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Eventmi.Infrastructure.Data.Models;
 
 namespace Eventmi.Core.Models
 {
@@ -23,5 +24,9 @@ namespace Eventmi.Core.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Field '{0}' is required")]
         [StringLength(100, MinimumLength = 4, ErrorMessage = "Field '{0}' must be between {2} and {1} symbols")]
         public string Place { get; set; } = null!;
+
+        public int Category { get; set; }
+
+        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
     }
 }

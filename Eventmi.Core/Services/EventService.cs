@@ -1,5 +1,6 @@
 ﻿using Eventmi.Core.Contracts;
 using Eventmi.Core.Models;
+using Eventmi.Infrastructure.Data;
 using Eventmi.Infrastructure.Data.Common;
 using Eventmi.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,19 @@ namespace Eventmi.Core.Services
     public class EventService : IEventService
     {
         private readonly IRepository repo;
-        public EventService(IRepository _repo)
+
+        private readonly EventmiDbContext context;
+
+        public EventService(IRepository _repo,
+            EventmiDbContext _context)
         {
             repo = _repo;
+            context = _context;
+        }
+
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
+        {
+            return await context.Categories.ToListAsync();
         }
 
         public async Task AddAsync(EventModel model)
@@ -21,7 +32,8 @@ namespace Eventmi.Core.Services
                 Name = model.Name,
                 End = model.End,
                 Place = model.Place,
-                Start = model.Start
+                Start = model.Start,
+                CategoryId = model.Category
             };
 
             await repo.AddAsync(entity);
@@ -37,17 +49,20 @@ namespace Eventmi.Core.Services
 
         public async Task<IEnumerable<EventModel>> GetAllAsync()
         {
-            return await repo.AllReadonly<Event>()
-                .Select(e => new EventModel() 
+            var entities = await context.Events
+                .Include(e => e.Category)
+                .ToListAsync();
+
+            return entities
+                .Select(e => new EventModel()
                 {
                     Id = e.Id,
                     Name = e.Name,
                     End = e.End,
                     Place = e.Place,
-                    Start = e.Start
-                })
-                .OrderBy(e => e.Start)
-                .ToListAsync();
+                    Start = e.Start,
+                    Category = e.CategoryId
+                });
         }
 
         public async Task<EventModel> GetEventAsync(int id)
@@ -65,7 +80,8 @@ namespace Eventmi.Core.Services
                 End = entity.End,
                 Place = entity.Place,
                 Start = entity.Start,
-                Id = entity.Id
+                Id = entity.Id,
+                Category = entity.CategoryId
             };
         }
 

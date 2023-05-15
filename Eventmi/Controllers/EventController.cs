@@ -38,12 +38,13 @@ namespace Eventmi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             var model = new EventModel()
             {
                 Start = DateTime.Today,
-                End = DateTime.Today
+                End = DateTime.Today,
+                Categories = await eventService.GetCategoriesAsync()
             };
 
             return View(model);

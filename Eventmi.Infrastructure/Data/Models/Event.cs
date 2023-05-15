@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Eventmi.Infrastructure.Data.Models
 {
@@ -22,5 +23,10 @@ namespace Eventmi.Infrastructure.Data.Models
         [Required]
         [StringLength(100)]
         public string Place { get; set; } = null!;
+
+        public int CategoryId { get; set; }
+
+        [ForeignKey(nameof(CategoryId))]
+        public Category Category { get; set; }
     }
 }
